@@ -137,8 +137,52 @@ def truncate(string):
 
 
 def has_balanced_parens(string):
-    pass  # TODO: replace this line with your code
+    """Return true is all parantheses in a given string are balanced
+    >>> has_balanced_parens('()')
+    True
+    >>> has_balanced_parens('((This) (is) (good))')
+    True
+    >>> has_balanced_parens('(Oh no!)(')
+    False
+    """
+    parens = 0
 
+    for char in string:
+        if char == '(':
+            parens += 1
+        if char == ')':
+            parens -= 1
+    
+    return parens == 0
+            
 
 def compress(string):
-    pass  # TODO: replace this line with your code
+    """Return a compressed version of the given string.
+    >>> compress('aabbaabb')
+    'a2b2a2b2'
+    >>> compress('abc')
+    'abc'
+    >>> compress('Hello, world! Cows go moooo...')
+    'Hel2o, world! Cows go mo4.3'
+    >>> 
+    """
+
+    compressed = []
+    curr_char = ''
+    char_count = 0
+
+    for char in string:
+        if char != curr_char:
+            compressed.append(curr_char)
+            if char_count > 1:
+                compressed.append(str(char_count))
+            curr_char = char
+            char_count = 0
+        char_count += 1
+        
+    compressed.append(curr_char)
+
+    if char_count > 1:
+        compressed.append(str(char_count))
+    
+    return ''.join(compressed)
